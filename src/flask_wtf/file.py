@@ -1,3 +1,4 @@
+import os
 import warnings
 from collections import abc
 
@@ -81,7 +82,8 @@ class FileAllowed:
         filename = field.data.filename.lower()
 
         if isinstance(self.upload_set, abc.Iterable):
-            if any(filename.endswith("." + x) for x in self.upload_set):
+            ext = os.path.splitext(filename)[1].lstrip('.')
+            if ext in self.upload_set:
                 return
 
             raise StopValidation(

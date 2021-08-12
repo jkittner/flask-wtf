@@ -60,6 +60,10 @@ def test_file_allowed(form):
     assert not f.validate()
     assert f.file.errors[0] == "File does not have an approved extension: txt"
 
+    f = form(file=FileStorage(filename=".txt"))
+    assert not f.validate()
+    assert f.file.errors[0] == "File does not have an approved extension: txt"
+
 
 def test_file_allowed_uploadset(app, form):
     pytest.importorskip("flask_uploads")
